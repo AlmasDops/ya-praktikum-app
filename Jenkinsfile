@@ -45,7 +45,7 @@ pipeline {
             sh """
                 curl -X POST -H 'Content-type: application/json' \
                 --data '{"chat_id": "-1003860391318", "text": "Almas Zholzhan собрал приложение."}' \
-                https://api.telegram.org/bot<TOKEN>/sendMessage
+                https://api.telegram.org/bot8671270485:AAHtAissx5N2hVShnGWCcmnRfTQ79i_a1SI/sendMessage
             """
         }
     }
