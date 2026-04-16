@@ -36,18 +36,17 @@ pipeline {
         }
 
         stage('Save artifacts') {
-            steps {
-                archiveArtifacts(artifacts: 'backend/target/*.jar')
-                archiveArtifacts(artifacts: 'frontend/dist/frontend/*')
-            }
-        }
-
-        stage('Notify slack'){
-            steps{
-                script{
-                    sh(script: "curl -X POST -H 'Content-type: application/json' --data '{\"text\":\"**Антон Алексеев** собрал приложение.\"}' https://hooks.slack.com/services/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")
-                }
-            }
+    steps {
+        archiveArtifacts(artifacts: 'backend/target/*.jar')
+        archiveArtifacts(artifacts: 'frontend/dist/frontend/*')
+    }
+    post {
+        success {
+            sh """
+                curl -X POST -H 'Content-type: application/json' \
+                --data '{"chat_id": "-1003860391318", "text": "Almas Zholzhan собрал приложение."}' \
+                https://api.telegram.org/bot<TOKEN>/sendMessage
+            """
         }
     }
 }
